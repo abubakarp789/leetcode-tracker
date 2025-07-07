@@ -5,12 +5,13 @@ import Problems from './pages/Problems';
 import ProblemDetail from './pages/ProblemDetail';
 import AddProblem from './pages/AddProblem';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <Router>
       <Navbar />
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6 min-h-[80vh] bg-white dark:bg-gray-900 rounded-lg shadow-lg">
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/problems" element={<Problems />} />
@@ -19,6 +20,7 @@ function App() {
           <Route path="*" element={<Dashboard />} />
         </Routes>
       </div>
+      <Footer />
     </Router>
   );
 }

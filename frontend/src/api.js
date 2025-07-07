@@ -7,6 +7,7 @@ export const addProblem = (formData, password) =>
   axios.post(`${API_BASE}/add`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
-      Authorization: 'Basic ' + btoa('admin:' + password),
+      Authorization: `Bearer ${password}`,
     },
-  }); 
+  });
+export const getProblem = (id) => axios.get(`${API_BASE}/problems/${id}`); 

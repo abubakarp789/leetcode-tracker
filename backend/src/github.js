@@ -4,6 +4,12 @@ console.log('GITHUB_REPO:', process.env.GITHUB_REPO);
 if (!process.env.GITHUB_REPO) {
   throw new Error('GITHUB_REPO is not set. Did you forget to create a .env file or call dotenv.config()?');
 }
+
+// Add this missing line - Create the Octokit instance
+const octokit = new Octokit({
+  auth: process.env.GITHUB_TOKEN,
+});
+
 const [owner, repo] = process.env.GITHUB_REPO.split('/');
 
 export async function getProblemsJson() {
@@ -52,4 +58,4 @@ export async function addProblemToRepo(problem, solutionFile) {
     message: `Add solution: ${problem.title} (${problem.filename})`,
     content: solutionFile.buffer.toString('base64'),
   });
-} 
+}
