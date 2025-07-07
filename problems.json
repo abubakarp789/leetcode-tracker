@@ -1,0 +1,15 @@
+[
+  {
+    "id": "001",
+    "title": "Two Sum",
+    "difficulty": "Easy",
+    "tags": [
+      "Array"
+    ],
+    "status": "Solved",
+    "date": "2025-07-07",
+    "language": "Python",
+    "filename": "001-two-sum.python",
+    "notes": ""
+  }
+]
