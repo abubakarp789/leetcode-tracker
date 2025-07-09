@@ -11,5 +11,18 @@
     "language": "Python",
     "filename": "001-two-sum.python",
     "notes": ""
+  },
+  {
+    "id": "349",
+    "title": "Intersection of Two Arrays",
+    "difficulty": "Easy",
+    "tags": [
+      "Array Hash Table Two Pointers Binary Search Sorting"
+    ],
+    "status": "Solved",
+    "date": "2025-07-09",
+    "language": "Python",
+    "filename": "349-intersection-of-two-arrays.python",
+    "notes": ""
   }
 ]
