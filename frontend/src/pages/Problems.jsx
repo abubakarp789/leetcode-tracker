@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { getProblems } from '../api';
 import Card from '../components/Card';
 import Tag from '../components/Tag';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Problems() {
   const [problems, setProblems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState({ difficulty: '', status: '', tag: '' });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProblems = async () => {
@@ -31,6 +32,14 @@ export default function Problems() {
 
   if (loading) return <div className="text-center p-8 text-lg font-semibold">Loading problems...</div>;
   if (error) return <div className="text-center p-8 text-lg font-semibold text-red-500">{error}</div>;
+
+  // Add delete handler (to be implemented)
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this problem?')) return;
+    // TODO: Call delete API
+    // await deleteProblem(id);
+    setProblems(problems => problems.filter(p => p.id !== id));
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 pb-12">
@@ -84,6 +93,16 @@ export default function Problems() {
                 <div className="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400 pt-4 border-t border-gray-100 dark:border-gray-700">
                   <span className="font-medium">Language: {p.language}</span>
                   <span className={`font-bold ${p.status === 'Solved' ? 'text-green-600' : 'text-gray-500'}`}>{p.status}</span>
+                </div>
+                <div className="flex justify-end gap-2 mt-4">
+                  <button
+                    className="px-3 py-1 bg-yellow-400 text-white rounded hover:bg-yellow-500 font-semibold text-xs"
+                    onClick={() => navigate(`/edit/${p.id}`)}
+                  >Edit</button>
+                  <button
+                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 font-semibold text-xs"
+                    onClick={() => handleDelete(p.id)}
+                  >Delete</button>
                 </div>
               </Card>
             ))}
