@@ -6,6 +6,8 @@ import ProblemDetail from './pages/ProblemDetail';
 import AddProblem from './pages/AddProblem';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ReviewQueue from './pages/ReviewQueue';
+import ReviewSession from './pages/ReviewSession';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="/problems" element={<Problems />} />
           <Route path="/problem/:id" element={<ProblemDetail />} />
           <Route path="/add" element={<AddProblem />} />
+          <Route path="/review" element={<ReviewQueue />} />
+          <Route path="/review/:id" element={<ReviewSession />} />
           <Route path="*" element={<Dashboard />} />
         </Routes>
       </div>

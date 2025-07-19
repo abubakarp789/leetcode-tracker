@@ -10,4 +10,6 @@ export const addProblem = (formData, password) =>
       Authorization: `Bearer ${password}`,
     },
   });
-export const getProblem = (id) => axios.get(`${API_BASE}/problems/${id}`); 
+export const getProblem = (id) => axios.get(`${API_BASE}/problems/${id}`);
+export const getReviewQueue = () => axios.get(`${API_BASE}/problems/review-queue`);
+export const reviewProblem = (id, quality) => axios.post(`${API_BASE}/problems/${id}/review`, { quality }); 

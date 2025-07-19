@@ -36,7 +36,12 @@ router.post('/', checkAuth, upload.single('solution'), async (req, res) => {
       date,
       language,
       filename,
-      notes: notes || ''
+      notes: notes || '',
+      last_reviewed_date: null,
+      next_review_date: null,
+      review_interval: 1,
+      ease_factor: 2.5,
+      repetitions: 0
     }, solutionFile);
 
     res.status(201).json({ success: true, message: 'Problem added successfully.' });

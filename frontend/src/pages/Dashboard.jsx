@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getProblems } from '../api';
+import { Link } from 'react-router-dom';
+import { getProblems, getReviewQueue } from '../api';
 import Card from '../components/Card';
 import Tag from '../components/Tag';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -143,21 +144,25 @@ const CalendarHeatmap = ({ data }) => {
 
 export default function Dashboard() {
   const [problems, setProblems] = useState([]);
+  const [reviewQueue, setReviewQueue] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchProblems = async () => {
+    const fetchDashboardData = async () => {
       try {
-        const res = await getProblems();
-        const sortedProblems = res.data.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const problemsRes = await getProblems();
+        const sortedProblems = problemsRes.data.sort((a, b) => new Date(b.date) - new Date(a.date));
         setProblems(sortedProblems);
+
+        const reviewRes = await getReviewQueue();
+        setReviewQueue(reviewRes.data);
       } catch (err) {
-        setError('Failed to fetch problems. Please try again later.');
+        setError('Failed to fetch dashboard data. Please try again later.');
       }
       setLoading(false);
     };
-    fetchProblems();
+    fetchDashboardData();
   }, []);
 
   const solvedCount = problems.filter(p => p.status === 'Solved').length;
@@ -200,11 +205,17 @@ export default function Dashboard() {
             </div>
         </Card>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <Card className="flex flex-col items-center justify-center text-center border-t-4 border-green-400">
             <div className="text-5xl font-bold text-green-600 dark:text-green-400">{solvedCount}</div>
             <div className="text-gray-600 dark:text-gray-400 mt-2 font-semibold">Total Solved</div>
           </Card>
+          <Link to="/review" className="block">
+            <Card className="flex flex-col items-center justify-center text-center h-full border-t-4 border-purple-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <div className="text-5xl font-bold text-purple-600 dark:text-purple-400">{reviewQueue.length}</div>
+              <div className="text-gray-600 dark:text-gray-400 mt-2 font-semibold">Problems to Review</div>
+            </Card>
+          </Link>
           <Card className="flex flex-col items-center justify-center text-center border-t-4 border-yellow-400">
              <div className="flex items-baseline gap-4">
                 <div>

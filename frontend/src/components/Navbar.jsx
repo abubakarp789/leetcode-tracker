@@ -6,6 +6,7 @@ const navLinks = [
   { to: '/dashboard', label: 'Dashboard' },
   { to: '/problems', label: 'Problems' },
   { to: '/add', label: 'Add' },
+  { to: '/review', label: 'Review' },
 ];
 
 function Navbar() {
